@@ -19,7 +19,7 @@ module.exports = {
 	async execute(interaction) {
 		const member = interaction.user;
 		const craftistRole = interaction.guild.roles.cache.find(role => role.id === 1395767247909163101);
-		member.addRole(craftistRole);
+		member.roles.add(craftistRole);
 		const email = interaction.options.getString('email');
 		const ksEntry = ksData.find(row => row.Email.toLowerCase() === email.toLowerCase());
 		if (ksEntry && ksEntry['Pledged status'] === 'collected') {
@@ -40,11 +40,11 @@ module.exports = {
 				const isSuperbackerRole = ksEntry['"Superbacker" Discord role'] === '1';
 				if (isBackerRole) {
 					const backerRole = interaction.guild.roles.cache.find(role => role.id === 1412713242526224436);
-					member.addRole(backerRole);
+					member.roles.add(backerRole);
 				}
 				if (isSuperbackerRole) {
 					const superbackerRole = interaction.guild.roles.cache.find(role => role.id === 1412713090155548742);
-					member.addRole(superbackerRole);
+					member.roles.add(superbackerRole);
 				}
 				claimed.push(email);
 				fs.writeFileSync(claimedPath, JSON.stringify(claimed));
