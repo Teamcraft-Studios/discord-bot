@@ -17,9 +17,8 @@ module.exports = {
 		.setDescription('Claim your status based on Kickstarter pledge on Teamcrafter')
 		.addStringOption(option => option.setName('email').setDescription('Email used for your Kickstarter account').setRequired(true)),
 	async execute(interaction) {
-		const member = interaction.user;
-		const craftistRole = interaction.guild.roles.cache.find(role => role.id === 1395767247909163101);
-		member.roles.add(craftistRole);
+		const member = await interaction.guild.members.fetch(interaction.user.id);
+		member.roles.add(1395767247909163101);
 		const email = interaction.options.getString('email');
 		const ksEntry = ksData.find(row => row.Email.toLowerCase() === email.toLowerCase());
 		if (ksEntry && ksEntry['Pledged status'] === 'collected') {
@@ -39,12 +38,10 @@ module.exports = {
 				const isBackerRole = ksEntry['"Backer" Discord role'] === '1';
 				const isSuperbackerRole = ksEntry['"Superbacker" Discord role'] === '1';
 				if (isBackerRole) {
-					const backerRole = interaction.guild.roles.cache.find(role => role.id === 1412713242526224436);
-					member.roles.add(backerRole);
+					member.roles.add(1412713242526224436);
 				}
 				if (isSuperbackerRole) {
-					const superbackerRole = interaction.guild.roles.cache.find(role => role.id === 1412713090155548742);
-					member.roles.add(superbackerRole);
+					member.roles.add(1412713090155548742);
 				}
 				claimed.push(email);
 				fs.writeFileSync(claimedPath, JSON.stringify(claimed));
