@@ -22,7 +22,7 @@ module.exports = {
 		const email = interaction.options.getString('email');
 		const ksEntry = ksData.find(row => row.Email.toLowerCase() === email.toLowerCase());
 		console.log(ksEntry);
-		if (ksEntry && ksEntry['Pledged status'] === 'collected') {
+		if (ksEntry && ksEntry['Pledged Status'] === 'collected') {
 			const claimedPath = join(__dirname, '../claimed.json');
 			const claimed = JSON.parse(fs.readFileSync(claimedPath, 'utf8') || '[]');
 			if (claimed.includes(email)) {
