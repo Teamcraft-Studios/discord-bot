@@ -18,7 +18,7 @@ module.exports = {
 		.addStringOption(option => option.setName('email').setDescription('Email used for your Kickstarter account').setRequired(true)),
 	async execute(interaction) {
 		const member = await interaction.guild.members.fetch(interaction.user.id);
-		const craftistRole = interaction.guild.roles.cache.find(role => role.id === 1395767247909163101);
+		const craftistRole = interaction.guild.roles.fetch(1395767247909163101);
 		member.roles.add(craftistRole);
 		const email = interaction.options.getString('email');
 		const ksEntry = ksData.find(row => row.Email.toLowerCase() === email.toLowerCase());
@@ -39,11 +39,11 @@ module.exports = {
 				const isBackerRole = ksEntry['"Backer" Discord role'] === '1';
 				const isSuperbackerRole = ksEntry['"Superbacker" Discord role'] === '1';
 				if (isBackerRole) {
-					const backerRole = interaction.guild.roles.cache.find(role => role.id === 1412713242526224436);
+					const backerRole = interaction.guild.roles.fetch(1412713242526224436);
 					member.roles.add(backerRole);
 				}
 				if (isSuperbackerRole) {
-					const superbackerRole = interaction.guild.roles.cache.find(role => role.id === 1412713090155548742);
+					const superbackerRole = interaction.guild.roles.fetch(1412713090155548742);
 					member.roles.add(superbackerRole);
 				}
 				claimed.push(email);
