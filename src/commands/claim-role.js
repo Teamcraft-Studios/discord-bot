@@ -32,6 +32,7 @@ module.exports = {
 							.setColor('CRIMSON')
 							.setDescription('Your profile does not appear in our Backers list, please contact devs if you think it\'s a mistake.'),
 					],
+					ephemeral: true,
 				});
 			}
 			else {
@@ -52,6 +53,7 @@ module.exports = {
 							.setColor('GREEN')
 							.setDescription('Roles have been assigned successfully'),
 					],
+					ephemeral: true,
 				});
 			}
 		}
@@ -63,7 +65,9 @@ module.exports = {
 						.setColor('CRIMSON')
 						.setDescription('Your profile does not appear in our Backers list, please contact devs if you think it\'s a mistake.'),
 				],
+				ephemeral: true,
 			});
 		}
+		await interaction.remove;
 	},
 };
