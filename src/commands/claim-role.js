@@ -21,6 +21,7 @@ module.exports = {
 		member.roles.add('1395767247909163101');
 		const email = interaction.options.getString('email');
 		const ksEntry = ksData.find(row => row.Email.toLowerCase() === email.toLowerCase());
+		console.log(ksEntry);
 		if (ksEntry && ksEntry['Pledged status'] === 'collected') {
 			const claimedPath = join(__dirname, '../claimed.json');
 			const claimed = JSON.parse(fs.readFileSync(claimedPath, 'utf8') || '[]');
@@ -30,7 +31,7 @@ module.exports = {
 						new MessageEmbed()
 							.setTitle('Claim failed')
 							.setColor('CRIMSON')
-							.setDescription('Your profile does not appear in our Backers list, please contact devs if you think it\'s a mistake.'),
+							.setDescription('Your email has already been claimed'),
 					],
 					ephemeral: true,
 				});
