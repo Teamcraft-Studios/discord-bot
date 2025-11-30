@@ -13,7 +13,7 @@ const ksData = parse(readFileSync(path.join(__dirname, 'export.csv'), 'utf-8'), 
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('update')
+		.setName('claim')
 		.setDescription('Claim your status based on Kickstarter pledge on Teamcrafter')
 		.addStringOption(option => option.setName('email').setDescription('Email used for your Kickstarter account').setRequired(true)),
 	async execute(interaction) {
