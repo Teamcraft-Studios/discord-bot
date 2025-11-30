@@ -17,16 +17,6 @@ module.exports = {
 		.setDescription('Claim your status based on Kickstarter pledge on Teamcrafter')
 		.addStringOption(option => option.setName('email').setDescription('Email used for your Kickstarter account').setRequired(true)),
 	async execute(interaction) {
-
-		await interaction.reply({
-			embeds: [
-				new MessageEmbed()
-					.setTitle('Kickstarter roles claim')
-					.setColor('AQUA')
-					.setDescription('Syncing roles and contribution...'),
-			],
-			ephemeral: true,
-		});
 		const member = interaction.user;
 		const craftistRole = interaction.guild.roles.find(role => role.id === 1395767247909163101);
 		member.addRole(craftistRole);
