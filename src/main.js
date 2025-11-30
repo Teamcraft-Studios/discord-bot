@@ -1,42 +1,46 @@
 const fs = require('fs');
 const path = require('path');
-const {Client, Collection, Intents} = require('discord.js');
-const {token} = require('./config.js');
+const { Client, Collection, Intents } = require('discord.js');
+const { token } = require('./config.js');
 
 
-const client = new Client({intents: [Intents.FLAGS.GUILDS]});
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+if (!fs.existsSync('claimed.json')) {
+	fs.writeFileSync('claimed.json', '[]');
+}
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync(path.join(__dirname, './commands')).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-    const command = require(path.join(__dirname, `./commands/${file}`));
-    client.commands.set(command.data.name, command);
+	const command = require(path.join(__dirname, `./commands/${file}`));
+	client.commands.set(command.data.name, command);
 }
 
 client.once('ready', () => {
-    console.log('Ready!');
+	console.log('Ready!');
 });
 
 client.on('interactionCreate', async interaction => {
-    let command = client.commands.get(interaction.commandName);
+	let command = client.commands.get(interaction.commandName);
 
-    if (interaction.isSelectMenu()) {
-        command = client.commands.get(interaction.customId.split(':')[0]);
-    }
+	if (interaction.isSelectMenu()) {
+		command = client.commands.get(interaction.customId.split(':')[0]);
+	}
 
-    if (!command) return;
+	if (!command) return;
 
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        return interaction.reply({content: 'There was an error while executing this command!', ephemeral: true});
-    }
+	try {
+		await command.execute(interaction);
+	}
+	catch (error) {
+		console.error(error);
+		return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
 client.login(token).then(() => {
-    client.user.setActivity('Discarding summons...')
+	client.user.setActivity('Crafting amazing gear');
 });
-
 
