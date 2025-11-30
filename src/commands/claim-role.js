@@ -56,6 +56,8 @@ module.exports = {
 					const superbackerRole = interaction.guild.roles.find(role => role.id === 1412713090155548742);
 					member.addRole(superbackerRole);
 				}
+				claimed.push(email);
+				fs.writeFileSync(claimedPath, JSON.stringify(claimed));
 				await interaction.reply({
 					embeds: [
 						new MessageEmbed()
